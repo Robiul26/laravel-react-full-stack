@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -52,8 +53,10 @@ class UserController extends Controller
     {
         $fields = $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|email|exists:users',
-            $user,
+            // 'email' => 'required|email|exists:users',
+            // $user,
+            
+            'email' => 'required|email',Rule::unique('users')->ignore($user)
             // 'password' => 'required|confirmed'
         ]);
 
